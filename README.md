@@ -20,6 +20,16 @@
 学習用データフォーマット2 -> ### 指示:<NL>文章<NL><NL>### 回答:<NL>文章<NL>
 
 とりあえずデータ2で。
+```python
+    output = []
+    for conv in data:
+        formatted = {
+            "input": first_sentence,
+            "output": second_sentence
+        }
+
+        output.append(formatted)
+```
 
 ```python
 # プロンプトテンプレートの準備
