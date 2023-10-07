@@ -44,3 +44,28 @@ def generate_prompt(data_point):
     result = result.replace('\n', '<NL>')
     return result
 ```
+
+## 環境構築
+requirment
+
+```zsh
+pip install -Uqq  git+https://github.com/huggingface/peft.git
+pip install -Uqq transformers datasets accelerate 
+pip install -i https://test.pypi.org/simple/ bitsandbytes
+pip install sentencepiece
+```
+
+docker??
+
+仮想環境作成　python3 -m venv name_of_your_env
+仮想環境起動　source name_of_your_env/bin/activate 
+仮想環境の無効化　deactivate
+
+jupyter notebookを使いたい場合
+pip install ipykernel
+ipython kernel install --user --name=name_of_your_env
+
+pip install notebook
+jupyter notebook
+
+kernel -> name_of_your_env
