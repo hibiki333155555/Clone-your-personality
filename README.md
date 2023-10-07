@@ -13,13 +13,14 @@
 
 
 ## 学習用データの整形
+とりあえず完了　データ数806  
 
 学習用データフォーマット1 -> ### 指示:<NL>文章<NL><NL>### 入力:<NL>文章<NL><NL>### 回答:<NL>文章<NL>
 
 学習用データフォーマット2 -> ### 指示:<NL>文章<NL><NL>### 回答:<NL>文章<NL>
 
 とりあえずデータ2で。
-andy-mori.txtを dictionaryの配列にして generate_promptに渡す。
+andy-mori.txtを dictionaryの配列にして generate_promptに渡す。  
 メッセージはAさんBさんAさんBさんのように交互ではなくて  
 A A A B B A B のように不規則に繰り返される。  
 とりあえず　what_did_you_reply_to に文章を保存して学習対象が発言したら(今回はAndyが発言したら)  

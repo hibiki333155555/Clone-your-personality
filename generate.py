@@ -12,6 +12,18 @@ model = AutoModelForCausalLM.from_pretrained(
     load_in_8bit=True,
     device_map="auto",
 )
+"""
+from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
+
+quantization_config = BitsAndBytesConfig(llm_int8_enable_fp32_cpu_offload=True)
+# モデルの準備
+model = AutoModelForCausalLM.from_pretrained(
+    model_name,
+    quantization_config=quantization_config,
+    device_map="auto",
+)
+"""
+
 
 # トークナイザーの準備
 tokenizer = AutoTokenizer.from_pretrained(model_name, use_fast=False)
@@ -29,21 +41,11 @@ model.eval()
 
 # プロンプトテンプレートの準備
 def generate_prompt(data_point):
-    if data_point["input"]:
-        result = f"""### 指示:
-{data_point["instruction"]}
+    result = f"""### 指示:
+    {data_point["instruction"]}
 
-### 入力:
-{data_point["input"]}
-
-### 回答:
-"""
-    else:
-        result = f"""### 指示:
-{data_point["instruction"]}
-
-### 回答:
-"""
+    ### 回答:
+    """
 
     # 改行→<NL>
     result = result.replace('\n', '<NL>')
@@ -88,5 +90,5 @@ def generate(instruction, input=None, maxTokens=256) -> str:
 
 
 # テキスト生成
-print("自然言語処理ってさ、\n{0}".format(generate('自然言語処理ってさ、')))
-print("台風近づいてるなぁ。\n{0}".format(generate('台風近づいてるなぁ。')))
+print("今日暇？\n{0}".format(generate('今日暇?')))
+print("それはあり得ないだろ\n{0}".format(generate('それはあり得ないだろ')))

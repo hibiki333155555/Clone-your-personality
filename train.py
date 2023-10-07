@@ -29,11 +29,9 @@ def tokenize(prompt, tokenizer):
 # データセットをJSONからロード
 import json
 
-with open("formatted_line.json", "r", encoding='utf-8') as f:
-    loaded_data = json.load(f)
+with open("output.json", "r", encoding='utf-8') as f:
+    data = json.load(f)
 
-data_1 = [item for item in loaded_data if not item['input'].startswith('RT')]
-data = [item for item in data_1 if not item['input'].startswith('@')]
 
 print("データ数:", len(data))
 
@@ -41,10 +39,10 @@ print("データ数:", len(data))
 # プロンプトテンプレートの準備
 def generate_prompt(data_point):
     result = f"""### 指示:
-{data_point["input"]}
+{data_point["instruction"]}
 
 ### 回答:
-{data_point["completion"]}
+{data_point["output"]}
 """
     # 改行→<NL>
     result = result.replace('\n', '<NL>')
@@ -52,7 +50,7 @@ def generate_prompt(data_point):
 
 
 # データセットの準備
-VAL_SET_SIZE = 1000
+VAL_SET_SIZE = 400
 
 train_dataset = []
 val_dataset = []
