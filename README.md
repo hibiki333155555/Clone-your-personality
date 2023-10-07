@@ -16,20 +16,36 @@
 
 学習用データフォーマット1 -> ### 指示:<NL>文章<NL><NL>### 入力:<NL>文章<NL><NL>### 回答:<NL>文章<NL>
 
-
 学習用データフォーマット2 -> ### 指示:<NL>文章<NL><NL>### 回答:<NL>文章<NL>
 
 とりあえずデータ2で。
 andy-mori.txtを dictionaryの配列にして generate_promptに渡す。
+メッセージはAさんBさんAさんBさんのように交互ではなくて  
+A A A B B A B のように不規則に繰り返される。  
+とりあえず　what_did_you_reply_to に文章を保存して学習対象が発言したら(今回はAndyが発言したら)  
+replyの対象をinstructionにreplyをoutputにした。  
+andyが連続で発言している場合　instruction output　ともに andy　になっている。  
+もっといいアイデアを募集  
 ```python
-    output = []
-    for conv in data:
-        formatted = {
-            "instruction": first_sentence,
-            "output": second_sentence
-        }
+conversation_list = []
 
-        output.append(formatted)
+what_did_you_reply_to = ""
+
+with open('./data/andy_mori.txt', 'r', encoding='utf-8') as file:
+    
+    for line in file:
+        parts = line.strip().split(':')
+        if len(parts) == 2:
+            instruction, output = parts
+
+            if instruction.strip() == 'Andy':
+                conversation_dict = {"instruction": what_did_you_reply_to, "output": output.strip()}
+                conversation_list.append(conversation_dict)
+            
+            what_did_you_reply_to = output.strip()
+
+with open('output.json', 'w', encoding='utf-8') as json_file:
+    json.dump(conversation_list, json_file, ensure_ascii=False, indent=4)
 ```
 
 ```python
