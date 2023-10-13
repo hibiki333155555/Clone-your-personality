@@ -11,15 +11,15 @@
 とりあえず、36億パラメータのrinnaで試す
 - https://huggingface.co/rinna/japanese-gpt-neox-3.6b
 
+## スケジュール
+10/7  開始
+10/13 train_v2 学習ok
+
+予定
+10/15 bot化
+
 
 ## 学習用データの整形
-とりあえず完了　データ数806  
-
-学習用データフォーマット1 -> ### 指示:<NL>文章<NL><NL>### 入力:<NL>文章<NL><NL>### 回答:<NL>文章<NL>
-
-学習用データフォーマット2 -> ### 指示:<NL>文章<NL><NL>### 回答:<NL>文章<NL>
-
-とりあえずデータ2で。
 andy-mori.txtを dictionaryの配列にして generate_promptに渡す。  
 メッセージはAさんBさんAさんBさんのように交互ではなくて  
 A A A B B A B のように不規則に繰り返される。  
@@ -47,21 +47,6 @@ with open('./data/andy_mori.txt', 'r', encoding='utf-8') as file:
 
 with open('output.json', 'w', encoding='utf-8') as json_file:
     json.dump(conversation_list, json_file, ensure_ascii=False, indent=4)
-```
-
-```python
-# プロンプトテンプレートの準備
-# ↑のoutputが引数
-def generate_prompt(data_point):
-    result = f"""### 指示:
-    {data_point["instruction"]}
-
-    ### 回答:
-    {data_point["output"]}"""
-
-    # 改行→<NL>
-    result = result.replace('\n', '<NL>')
-    return result
 ```
 
 ## 環境構築
