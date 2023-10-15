@@ -104,11 +104,13 @@ dockerfile の FUNCTION_DIR を自分の環境のパスに変更する
 
 sudo docker build --platform linux/amd64 -t makgpt:test1 .
 をプロジェクトの root ディレクトリで実行
+
 docker images でビルドした image を確認できる
 
 ### step 2: AWS ECR の紐づけと ECR への docker image の push
 
-ECR の紐づけ -> https://docs.aws.amazon.com/ja_jp/AmazonECR/latest/userguide/getting-started-cli.html　のステップ２を参考に
+ECR の紐づけ -> https://docs.aws.amazon.com/ja_jp/AmazonECR/latest/userguide/getting-started-cli.html　
+のステップ２を参考に
 
 #### ECR への image の push
 
