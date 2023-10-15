@@ -90,19 +90,22 @@ kernel -> name_of_your_env
 まず aws-cli のインストールから　-> https://docs.aws.amazon.com/ja_jp/cli/latest/userguide/getting-started-install.html こちらからインストールしてください。
 
 次に docker image を作成します。
-マシンに docker(docker-compose)が入っていることを確認して(docker --version)、function 配下に requirements.txt を作成して次の単語を改行して入れる。
+マシンに docker(docker-compose)が入っていることを確認して```docker --version```、function 配下に requirements.txt を作成して次の単語を改行して入れる。
 
+```
 transformers
 torch
 peft
+```
 
 次に
 
 dockerfile の FUNCTION_DIR を自分の環境のパスに変更する
 
 そして
-
+```
 sudo docker build --platform linux/amd64 -t makgpt:test1 .
+```
 をプロジェクトの root ディレクトリで実行
 
 docker images でビルドした image を確認できる
@@ -113,17 +116,22 @@ ECR の紐づけ -> https://docs.aws.amazon.com/ja_jp/AmazonECR/latest/userguide
 のステップ２を参考に
 
 #### ECR への image の push
-
+```
 docker tag (image-name):(tag) (aws_account_id).dkr.ecr.(region).amazonaws.com/(repo-name)
+```
+
 でリポジトリに push する image にタグをつけた後に
 
+```
 docker push (aws_account_id).dkr.ecr.(region).amazonaws.com/(repo-name)
+```
 
 で image を push することができる
 
 ##### ECR からの image の pull
-
+```
 docker pull (aws_account_id).dkr.ecr.(region).amazonaws.com/(repo-name):(repo-tag)
+```
 
 ### step 3: lambda 関数の作成
 
@@ -134,5 +142,6 @@ aws の lambda 関数のコンソールに行き、
 また同じく設定から 関数 URL の作成をしてその関数 URL を使用する
 
 ### step 4: テスト
-
+```
 curl "(関数 url)" -d '{"body":"{\"action\":\"こんにちは\"}"}'
+```
