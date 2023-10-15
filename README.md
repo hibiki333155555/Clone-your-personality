@@ -85,7 +85,7 @@ kernel -> name_of_your_env
 
 ローカルで作成したモデルをいれた dokcer 環境を AWS ECR を利用して lambda 関数としてしようできるようにした(lambda のメモリが 3GB しか使えなくて 10GB ほど使う本プロジェクトでは現状動いていない状況)
 
-#### step 1: aws-cli のインストールと docker image の作成
+### step 1: aws-cli のインストールと docker image の作成
 
 まず aws-cli のインストールから　-> https://docs.aws.amazon.com/ja_jp/cli/latest/userguide/getting-started-install.html こちらからインストールしてください。
 
@@ -106,24 +106,24 @@ sudo docker build --platform linux/amd64 -t makgpt:test1 .
 をプロジェクトの root ディレクトリで実行
 docker images でビルドした image を確認できる
 
-#### step 2: AWS ECR の紐づけと ECR への docker image の push
+### step 2: AWS ECR の紐づけと ECR への docker image の push
 
 ECR の紐づけ -> https://docs.aws.amazon.com/ja_jp/AmazonECR/latest/userguide/getting-started-cli.html　のステップ２を参考に
 
-##### ECR への image の push
+#### ECR への image の push
 
-docker tag hello-world:latest (aws_account_id).dkr.ecr.(region).amazonaws.com/(repo-name)
+docker tag (image-name):(tag) (aws_account_id).dkr.ecr.(region).amazonaws.com/(repo-name)
 でリポジトリに push する image にタグをつけた後に
 
 docker push (aws_account_id).dkr.ecr.(region).amazonaws.com/(repo-name)
 
 で image を push することができる
 
-###### ECR からの image の pull
+##### ECR からの image の pull
 
 docker pull (aws_account_id).dkr.ecr.(region).amazonaws.com/(repo-name):(repo-tag)
 
-#### step 3: lambda 関数の作成
+### step 3: lambda 関数の作成
 
 aws の lambda 関数のコンソールに行き、
 関数の作成 -> コンテナイメージ ->　関数名の入力と ECR イメージの選択 -> 関数の作成
@@ -131,6 +131,6 @@ aws の lambda 関数のコンソールに行き、
 作成した関数のコンソールに飛び、設定からメモリを 10GB,タイムアウトを 10 分に設定してください。
 また同じく設定から 関数 URL の作成をしてその関数 URL を使用する
 
-#### step 4: テスト
+### step 4: テスト
 
 curl "(関数 url)" -d '{"body":"{\"action\":\"こんにちは\"}"}'
