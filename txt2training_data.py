@@ -1,7 +1,7 @@
 import json
 
 # データファイルを開く
-with open('./data/andy_mori.txt', 'r', encoding='utf-8') as file:
+with open('./data/data.txt', 'r', encoding='utf-8') as file:
     # 会話のリストを保存するための空リストを用意
     conversation_list = []
     # otherのメッセージとandyのメッセージを一時保存するための変数を用意
