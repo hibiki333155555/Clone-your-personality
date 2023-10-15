@@ -90,7 +90,7 @@ kernel -> name_of_your_env
 まず aws-cli のインストールから　-> https://docs.aws.amazon.com/ja_jp/cli/latest/userguide/getting-started-install.html こちらからインストールしてください。
 
 次に docker image を作成します。
-マシンに docker(docker-compose)が入っていることを確認して(docker --version)、function 配下に requirements.txt を作成して次の単語を入れる。
+マシンに docker(docker-compose)が入っていることを確認して(docker --version)、function 配下に requirements.txt を作成して次の単語を改行して入れる。
 
 transformers
 torch
