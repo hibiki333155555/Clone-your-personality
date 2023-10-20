@@ -1,4 +1,4 @@
-ARG FUNCTION_DIR="/home/andy/PROJECT/4fun/makit-llm-lambda/function/"
+ARG FUNCTION_DIR="/Users/morihibiki/abara/lora_local_llm/function/"
 ARG RUNTIME_VERSION="3.11"
 
 # Stage 1 - Create a bundle of the base image and the AWS runtime
