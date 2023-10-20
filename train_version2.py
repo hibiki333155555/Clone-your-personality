@@ -49,7 +49,7 @@ CUTOFF_LEN = 256  # コンテキスト長
 
 import json
 
-with open("output.json", "r", encoding='utf-8') as f:
+with open("outputtest.json", "r", encoding='utf-8') as f:
     data = json.load(f)
 
 
@@ -117,12 +117,12 @@ model = AutoModelForCausalLM.from_pretrained(
     load_in_8bit=True,
     device_map="auto",
 )
-
+print(model)
 # LoRAのパラメータ
 lora_config = LoraConfig(
     r= 8,
     lora_alpha=16,
-    target_modules=["query_key_value"],
+    target_modules=["query_key_value"],# "c_attn", "c_proj" this for gpt-2
     lora_dropout=0.05,
     bias="none",
     task_type=TaskType.CAUSAL_LM

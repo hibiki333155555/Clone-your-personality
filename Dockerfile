@@ -1,4 +1,4 @@
-ARG FUNCTION_DIR="/home/andy/PROJECT/4fun/makit-llm-lambda/function/"
+ARG FUNCTION_DIR="/home/function/"
 ARG RUNTIME_VERSION="3.11"
 
 # Stage 1 - Create a bundle of the base image and the AWS runtime
@@ -11,7 +11,7 @@ ARG RUNTIME_VERSION
 RUN mkdir -p ${FUNCTION_DIR}
 
 # Copy function code and model
-COPY function/* ${FUNCTION_DIR}
+COPY function/ ${FUNCTION_DIR}
 
 # Install the function's dependencies
 RUN python${RUNTIME_VERSION} -m pip install --no-cache-dir -r ${FUNCTION_DIR}/requirements.txt --target ${FUNCTION_DIR}
@@ -39,3 +39,4 @@ RUN chmod 755 /usr/bin/aws-lambda-rie /entry.sh
 # Use the entry script as the container's entry point
 ENTRYPOINT [ "/entry.sh" ]
 CMD [ "lambda_function.handler" ]
+

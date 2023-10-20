@@ -181,15 +181,15 @@ trainer.train()
 model.config.use_cache = True
 
 # モデルの保存
-torch.save(model.state_dict(), "clone.model")
+trainer.model.save_pretrained(peft_name)
 
 # S3にモデルをアップロード
 s3 = boto3.client('s3')
 bucket_name = "clone-you"
-object_name = "clone.model"
+object_name = peft_name
 
 print("uploading...")
 try:
-    s3.upload_file("clone.model", bucket_name, object_name)
+    s3.upload_(peft_name, bucket_name, object_name)
 except Exception as e:
     print(e)

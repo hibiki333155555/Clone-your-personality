@@ -1,5 +1,4 @@
 import json
-import torch
 from peft import PeftModel
 from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
 
@@ -8,8 +7,7 @@ class MyModel:
         quantization_config = BitsAndBytesConfig(llm_int8_enable_fp32_cpu_offload=True)
         self.model = AutoModelForCausalLM.from_pretrained(
             model_name,
-            quantization_config=quantization_config,
-        )
+        ).cpu()
         self.model = PeftModel.from_pretrained(
             self.model,
             peft_name,
@@ -27,7 +25,7 @@ class MyModel:
         input_ids = self.tokenizer(prompt,
                                    return_tensors="pt",
                                    truncation=True,
-                                   add_special_tokens=False).input_ids.cuda()
+                                   add_special_tokens=False).input_ids
         outputs = self.model.generate(
             input_ids=input_ids,
             max_new_tokens=maxTokens,
@@ -57,6 +55,8 @@ model_name = "rinna/japanese-gpt-neox-3.6b-instruction-ppo"
 peft_name = "lorappo-rinna-3.6b"
 tokenizer_name = model_name
 my_model = MyModel(model_name, tokenizer_name, peft_name)
+
+print(my_model.generate("今日はいい天気ですね。"))
 
 def handler(event, context):
     body = json.loads(event.get("body", "{}"))
