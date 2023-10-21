@@ -2,9 +2,9 @@ import torch
 from peft import PeftModel, PeftConfig
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
-model_name = "rinna/japanese-gpt2-small"
-peft_name = "lorappo-rinna-3.6b"
-output_dir = "lorappo-rinna-3.6b-results"
+model_name = "rinna/japanese-gpt-neox-3.6b-instruction-ppo"
+peft_name = "../lorappo-rinna-3.6b"
+output_dir = "../lorappo-rinna-3.6b-results"
 
 # モデルの準備
 model = AutoModelForCausalLM.from_pretrained(

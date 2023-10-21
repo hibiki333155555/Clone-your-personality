@@ -5,7 +5,7 @@ from torch.utils.data import DataLoader
 from datasets import Dataset
 from transformers import AutoConfig
 from peft import LoraConfig, get_peft_model, prepare_model_for_int8_training, TaskType
-
+import torch
 
 def tokenize_dataset(data_point, tokenizer, ignore_index=-100):
     features = []
@@ -49,7 +49,7 @@ CUTOFF_LEN = 256  # コンテキスト長
 
 import json
 
-with open("outputtest.json", "r", encoding='utf-8') as f:
+with open("../output.json", "r", encoding='utf-8') as f:
     data = json.load(f)
 
 
@@ -175,6 +175,7 @@ trainer = transformers.Trainer(
 model.config.use_cache = False
 trainer.train()
 model.config.use_cache = True
+
+
 # LoRAモデルの保存
-trainer.model.save_pretrained(peft_name)
-    
+model.save_pretrained(peft_name)

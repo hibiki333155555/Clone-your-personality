@@ -11,7 +11,7 @@ ARG RUNTIME_VERSION
 RUN mkdir -p ${FUNCTION_DIR}
 
 # Copy function code and model
-COPY function/ ${FUNCTION_DIR}
+COPY docker_lambda/ ${FUNCTION_DIR}
 
 # Install the function's dependencies
 RUN python${RUNTIME_VERSION} -m pip install --no-cache-dir -r ${FUNCTION_DIR}/requirements.txt --target ${FUNCTION_DIR}
