@@ -1,5 +1,7 @@
 data
-*.json
+output.json
 lorappo-rinna-3.6b
 lorappo-rinna-3.6b-results
 merged-rinnna-ppo-int8_ct2
+node_modules
+.env
