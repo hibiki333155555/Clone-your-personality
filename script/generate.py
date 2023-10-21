@@ -3,13 +3,12 @@ from peft import PeftModel, PeftConfig
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 model_name = "rinna/japanese-gpt-neox-3.6b-instruction-ppo"
-peft_name = "lorappo-rinna-3.6b"
-output_dir = "lorappo-rinna-3.6b-results"
+peft_name = "../lorappo-rinna-3.6b"
+output_dir = "../lorappo-rinna-3.6b-results"
 
 # モデルの準備
 model = AutoModelForCausalLM.from_pretrained(
     model_name,
-    load_in_8bit=True,
     device_map="auto",
 )
 """
@@ -82,6 +81,7 @@ def generate(instruction, input=None, maxTokens=256) -> str:
         sentinelLoc = decoded.find(sentinel)
         if sentinelLoc >= 0:
             result = decoded[sentinelLoc + len(sentinel):]
+            print(result)
             return result.replace("<NL>", "\n")  # <NL>→改行
         else:
             return 'Warning: Expected prompt template to be emitted.  Ignoring output.'
