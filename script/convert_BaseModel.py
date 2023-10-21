@@ -7,7 +7,7 @@ merge_output_dir = "../merged-rinnna-ppo"
 output_dir = "../merged-rinnna-ppo-int8" + "_ct2"
 
 import torch
-from peft import PeftConfig, PeftModel
+from peft import PeftModel
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 model = AutoModelForCausalLM.from_pretrained(
